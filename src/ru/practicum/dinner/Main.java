@@ -2,13 +2,11 @@ package ru.practicum.dinner;
 
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Random;
 
 public class Main {
 
     static DinnerConstructor dc;
     static Scanner scanner;
-    static Random rand = new Random();
 
     public static void main(String[] args) {
         dc = new DinnerConstructor();
@@ -42,19 +40,10 @@ public class Main {
         System.out.println("Введите тип блюда:");
         String dishType = scanner.nextLine();
 
-        if (dc.checkType(dishType)) {
+        System.out.println("Введите название блюда:");
+        String dishName = scanner.nextLine();
 
-            System.out.println("Введите название блюда:");
-            String dishName = scanner.nextLine();
-
-            if (dc.menu.containsKey(dishType)) {
-                dc.menu.get(dishType).add(dishName);
-            } else {
-                ArrayList<String> dishes = new ArrayList<>();
-                dishes.add(dishName);
-                dc.menu.put(dishType, dishes);
-            }
-        }
+        dc.addNewDish(dishType, dishName);
     }
 
     private static void generateDishCombo() {
@@ -75,29 +64,21 @@ public class Main {
                 break;
             }
 
-            if (dc.menu.containsKey(nextType)) {
+            if (dc.hasDishType(nextType)) {
                 dishTypes.add(nextType);
-            } else {
-                System.out.println("Такого типа блюда нет в меню.");
             }
         }
 
         for (int i = 0; i < numberOfCombos; i++) {
-            String[] combo = new String[dishTypes.size()];
-            for (int j = 0; j < dishTypes.size(); j++) {
-                ArrayList<String> dishList = dc.menu.get(dishTypes.get(j));
-                int randomIndex = rand.nextInt(dishList.size());
-                String dish = dishList.get(randomIndex);
-                combo[j] = dish;
-            }
+            String[] dishCombo = dc.generateRandomDishCombo(dishTypes);
             System.out.printf("Комбо %d:\n", i+1);
-            printCombo(combo);
+            printCombo(dishCombo);
         }
     }
 
-    public static void printCombo(String[] combo) {
-        for (String s : combo) {
-            System.out.printf("- %s\n", s);
+    public static void printCombo(String[] dishCombo) {
+        for (String dish : dishCombo) {
+            System.out.printf("- %s\n", dish);
         }
     }
 }
