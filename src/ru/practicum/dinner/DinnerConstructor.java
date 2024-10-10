@@ -54,4 +54,10 @@ public class DinnerConstructor {
         return dishCombo;
     }
 
+    public void printDishCombo(String[] dishCombo) {
+        for (String dish : dishCombo) {
+            System.out.printf("- %s\n", dish);
+        }
+    }
+
 }

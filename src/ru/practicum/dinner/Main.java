@@ -72,13 +72,7 @@ public class Main {
         for (int i = 0; i < numberOfCombos; i++) {
             String[] dishCombo = dc.generateRandomDishCombo(dishTypes);
             System.out.printf("Комбо %d:\n", i+1);
-            printCombo(dishCombo);
-        }
-    }
-
-    public static void printCombo(String[] dishCombo) {
-        for (String dish : dishCombo) {
-            System.out.printf("- %s\n", dish);
+            dc.printDishCombo(dishCombo);
         }
     }
 }
